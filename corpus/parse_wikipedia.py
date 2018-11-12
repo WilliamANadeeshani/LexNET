@@ -1,7 +1,7 @@
 import codecs
+import spacy
 
 from docopt import docopt
-from spacy.en import English
 from collections import defaultdict
 
 
@@ -21,7 +21,7 @@ def main():
         <out_file> = the output file
     """)
 
-    nlp = English()
+    nlp = spacy.load('en_core_web_sm')
 
     wiki_file = args['<wiki_file>']
     vocabulary_file = args['<vocabulary_file>']
@@ -176,7 +176,7 @@ def heads(token):
     """
     t = token
     hs = []
-    while t is not t.head:
+    while t != t.head:
         t = t.head
         hs.append(t)
     return hs[::-1]
